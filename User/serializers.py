@@ -2,6 +2,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
+from .models import Profile
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -38,6 +39,50 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
 
         user.set_password(validated_data['password'])
+        Profile.objects.create(user=user).save()
         user.save()
 
         return user
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    # profile_picture = serializers.ImageField(default='default.jpg', upload_to='pfp')
+    # description = serializers.CharField(max_length=250)
+
+    # Create a custom method field
+    # current_user = serializers.SerializerMethodField('_user')
+
+    # Use this method for the custom field
+    def _user(self, obj):
+        request = self.context.get('request', None)
+        if request:
+            return request.user
+
+    class Meta:
+        model = Profile
+        fields = ('user', 'profile_picture', 'description')
+
+    def create(self, validated_data):
+        profile = Profile.objects.create(
+            user=validated_data['user'],
+            profile_picture=validated_data['profile_picture'],
+            description=validated_data['description']
+        )
+
+        profile.save()
+
+        return profile
+
+    # def update(self, instance, validated_data):
+    #
+    #     instance.user = validated_data['user'],
+    #     instance.profile_picture = validated_data['profile_picture'],
+    #     instance.description = validated_data['description']
+    #
+    #     instance.save()
+    #
+    #     return instance
+
+
+
+
