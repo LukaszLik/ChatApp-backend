@@ -24,5 +24,6 @@ from User import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello/', views.HelloView.as_view(), name='hello'),
-    path('api/', include('User.urls'))
+    path('api/user/', include('User.urls')),
+    path('api/server/', include('Server.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

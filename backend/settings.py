@@ -30,6 +30,7 @@ DEBUG = True
 
 INSTALLED_APPS = [
     'User.apps.UserConfig',
+    'Server.apps.ServerConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
