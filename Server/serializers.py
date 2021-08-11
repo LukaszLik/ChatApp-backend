@@ -12,7 +12,10 @@ class ServerSerializer(serializers.ModelSerializer):
 
 
 class ServerListSerializer(serializers.ModelSerializer):
+    server = ServerSerializer()
+
     class Meta:
         model = ServerList
         fields = "__all__"
+        # fields = ('id', 'user', 'server')
 

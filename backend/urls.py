@@ -20,7 +20,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from User import views
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello/', views.HelloView.as_view(), name='hello'),

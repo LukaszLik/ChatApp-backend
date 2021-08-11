@@ -4,5 +4,6 @@ from rest_framework.authtoken.views import obtain_auth_token
 from .views import ServerView, ServersView
 
 urlpatterns = [
-    path('', ServersView.as_view(), name='servers'),
+    path('', ServerView.as_view(), name='server'),
+    path('<str:username>/', ServersView.as_view(), name='servers'),
 ]

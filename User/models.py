@@ -1,11 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
+from backend.static import USER_STATUS
 
 
 # Create your models here.
+class Status(models.Model):
+    status = models.PositiveSmallIntegerField(choices=USER_STATUS)
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    status = models.PositiveSmallIntegerField(choices=USER_STATUS, default=5)
     profile_picture = models.ImageField(default='default.jpg', upload_to='pfp')
     description = models.CharField(max_length=250)
 

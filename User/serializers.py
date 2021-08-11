@@ -60,13 +60,13 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('user', 'profile_picture', 'description')
+        fields = ('user', 'profile_picture', 'description', 'status')
 
     def create(self, validated_data):
         profile = Profile.objects.create(
             user=validated_data['user'],
             profile_picture=validated_data['profile_picture'],
-            description=validated_data['description']
+            description=validated_data['description'],
         )
 
         profile.save()
